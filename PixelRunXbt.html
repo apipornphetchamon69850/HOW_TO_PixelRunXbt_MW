@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelRunXbt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background: white;
+            color: black;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            z-index: 1300;
+            backdrop-filter: blur(5px);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -260px;
+            top: 50px;
+            width: 250px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding-top: 20px;
+            transition: 0.3s;
+            z-index: 1200;
+        }
+        .sidebar.open {
+            left: 0;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: red;
+            background: #333;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 65px;
+            left: 15px;
+            background: red;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1250;
+        }
+
+        section {
+            padding: 80px 20px 20px;
+        }
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .code-container {
+            position: relative;
+            width: 100%;
+            margin-top: 8px;
+        }
+        .code-box {
+            background: black;
+            color: red;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid red;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background: darkred;
+        }
+
+        .divider {
+            border-bottom: 2px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar" onclick="scrollToTop()">PixelRunXbt</div>
+
+    <div class="sidebar" id="sidebar">
+        <a href="#home">Home</a>
+        <a href="#command">Command</a>
+        <a href="#contact">Contact</a>
+    </div>
+    
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <section id="home">
+        <div class="container">
+            <h1>⚙️PixelRunXbt</h1>
+            <p>Command Usage Manual with Code Examples</p>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id=" command">
+        <div class="container">
+            <h2>⚙️Command</h2>
+
+            <h3>📌KEY</h3>
+            <p>-</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">copy</button>
+                <div class="code-box">
+//(Key-based Access)
+*<%>/SMGR(1)/USER(userx)/ONCC(true)<%%> -SMGR.Notification Setting = 1.Enable Notification 0.Disable Notification -USER.User Setting = user.Current User userx.Room Owner num.Set User ID -ONCC.Operation Setting = true.Enable Operation false.Disable Operation ***Text following the command header is the command itself, consisting of: 1.Single Command 2.Command Group
+*uiox consists of Page, Text, Text Box *bnvc consists of Event Script (event, value, user), Custom Event Script (value) *userx Current User
+1.SendPackage;.Set Package - Custom Event Script + //Normal Script. Supports userx, uiox, bnvc, PixelRunXbt:DataUnit(user,content),PixelRunXbt:RunScript(text),local data = '' local ok, json = pcall(JSON.encode, JSON, data) Game:dispatchEvent('PixelRunXbtsp', {customdata = json})
+2.SendCommand;.Set Data - textS
+3.SendRun<>.Run Command - Custom Event Script + SendPackage;. Supports userx, uiox, bnvc, textS, PixelRunXbt:DataUnit(user,content),PixelRunXbt:RunScript(text),local data = '' local ok, json = pcall(JSON.encode, JSON, data) Game:dispatchEvent('PixelRunXbtsp', {customdata = json})
+4.SendClear<>.Clear Display - Clears operation history, cannot be recovered.
+5.SendSettingcmd;.Set Display Limit - Sets the character limit per page.
+6.SendGetInformation<>.Get Operation Information - Information from each command execution.
+7.SendEvent;.Set Event - Only supports events registered in SendGeteventregistrationinformation<>.
+8.SendValue;.Set Value - Custom Event Script + //Normal Script. Supports uiox, bnvc, PixelRunXbt:DataUnit(user,content),PixelRunXbt:RunScript(text),local data = '' local ok, json = pcall(JSON.encode, JSON, data) Game:dispatchEvent('PixelRunXbtsp', {customdata = json}) **Parameters as original.
+9.SendGetDataEvent;.Set User - User to receive operation information of the event. Supports userx.
+10.SendSetScriptEvent;.Set the address of the created event - Set as a number @table after the latest data.
+11.SendCleartableSE<>.Clear Data in Event Table - Clears all specified addresses.
+12.SendGettableSE<>.Get Data in Event Table - Gets all specified addresses.
+13.SendGeteventregistrationinformation<>.Get Supported Event Information - All events registered in the system.
+14.SendSEC;.Set Script Data - Supports commands supported by SendSEC;.
+15.SendSetScriptSEC;.Set the address of the created event - Set as a number @table after the latest data.
+16.SendCleartableSEC<>.Clear Data in Event Table - Clears all specified addresses.
+17.SendGettableSEC<>.Get Data in Event Table - Gets all specified addresses.
+18.SendCommandDelete;.Set Format - When 'command' is typed][delete] on.Enable off.Disable.
+19.SendGroupCommand;.Run Group Command - After this command, type normal commands, ending each with QY. Commands can be typed continuously.
+20.Sendgst;.Set Operation Conditions - Supports 7 conditions. Enclose the number after ] with []. Enter data for: 1.SMGR 2.USER 3.ONCC 4.Open Terminal *0 Off *1 On 5.Receive Add-ons Currently 1-Terminal 6.Show Comments 7.Set Language en = 'English' cn = '简体中文' tw = '繁體中文' tha = 'ภาษาไทย' esn = 'Español' ptb = 'Português (Brasil)' fra = 'Français' jpn = '日本語' ara = 'العربية' kor = '한국어' vie = 'Tiếng Việt' rus = 'Русский' tur = 'Türkçe' ita = 'Italiano' ger = 'Deutsch' ind = 'Bahasa Indonesia' msa = 'Bahasa Melayu' 0 = /#
+{@table,on or off,0 or 1,<%>/SMGR(1)/USER(user)/ONCC(true)<%%>,[[1-7]],s.,userx,user,textS,number or string,uiox[1-3],dtsc[1-2],QY,PixelRunXbt:DataUnit(user,content),PixelRunXbt:RunScript(text),local data = '' local ok, json = pcall(JSON.encode, JSON, data) Game:dispatchEvent('PixelRunXbtsp', {customdata = json})},{en = 'English' cn = '简体中文' tw = '繁體中文' tha = 'ภาษาไทย' esn = 'Español' ptb = 'Português (Brasil)' fra = 'Français' jpn = '日本語' ara = 'العربية' kor = '한국어' vie = 'Tiếng Việt' rus = 'Русский' tur = 'Türkçe' ita = 'Italiano' ger = 'Deutsch' ind = 'Bahasa Indonesia' msa = 'Bahasa Melayu' 0 = /#},{'SendPackage;','SendCommand;','SendRun<>','SendClear<>','SendSettingcmd;','SendGetInformation<>','SendEvent;','SendValue;','SendGetDataEvent;','SendSetScriptEvent;','SendCleartableSE<>','SendGettableSE<>','SendGeteventregistrationinformation<>','SendSetScriptSEC;','SendSEC;','SendCleartableSEC<>','SendGettableSEC<>','SendCommandDelete;','SendGroupCommand;','Sendgst;'}}
+--<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendGroupCommand;
+SendSetScriptSEC;function removeformfeed(inpt) return string.gsub(inpt, "\f", "") end
+QYSendSEC;1
+QYSendCommand;""
+QYSendPackage;for i = 1,100 do
+local data = {
+content = removeformfeed("<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendGroupCommand\f;SendCommand\f;''Q\fYSendPackage\f;print('PixelRunXbtsp"+i+"')Q\fYSendgst\f;[6]"+i+"Q\fYSendRun<>Q\fY")
+}
+local ok, json = pcall(JSON.encode, JSON, data)
+Game:dispatchEvent("PixelRunXbtsp", {customdata = json}) end
+QYSendRun<>QY
+--<%>/SMGR(1)/USER(user)/ONCC(true)<%%>SendGroupCommand;
+SendEvent;Player.NewInputContentQY
+SendValue;
+local c,n = Player:getNickname(eventobjid)
+local result, num, array = World:getAllPlayers(-1)
+local result,id=MiniTimer:createTimer("timer",nil,true)
+local rd = "[Temporary Chat]@"+n+" : "+content
+MiniTimer:showTimerTips({0},id,rd+"#b#R|",true)
+for _, a in ipairs(array) do
+Player:notifyGameInfo2Self(a,"[Temporary Chat]@"+n+" : "+content)
+end
+QY
+SendGetDataEvent;userxQY
+SendSetScriptEvent;1QY
+//(Key-based Access)
+                </div>
+            </div>
+
+            <h3>📌API</h3>
+            <p>-</p>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode(this)">copy</button>
+                <div class="code-box">
+//(API)
+userx = host_room
+--Runs when the first player joins
+stdatasc[1] = {
+content = [[<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendCommand;""]]
+}
+stdatasc[2] = {
+content = [[<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendPackage;text="user001(beta)" uid=userx Actor:shownickname(uid,true) Actor:setnickname(uid,text) Actor:changeCustomModel(uid,"skin_"+math.random(1,401)) for i = 1,250 do Chat:sendSystemMsg(" ")end]]
+}
+stdatasc[3] = {
+content = [[<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendRun<>]]
+}
+--Runs immediately
+PixelRunXbt:RunScript(
+{
+content = [[<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendGroupCommand;SendCommand;""QYSendPackage;print("api~sc")QYSendRun<>QY]]
+})
+PixelRunXbt:RunScript({
+{
+content = [[<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendGroupCommand;SendCommand;""QYSendPackage;print("api~sc1")QYSendRun<>QY]]
+},
+{
+content = [[<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendGroupCommand;SendCommand;""QYSendPackage;print("api~sc2")QYSendRun<>QY]]
+}
+})
+--Sets the value of number 1 in the PixelRunXbt string group to the string "<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendGroupCommand;SendCommand;""QYSendPackage;print("tg1")QYSendRun<>QY"
+local data = {content = [[<%>/SMGR(1)/USER(userx)/ONCC(true)<%%>SendGroupCommand;SendCommand;""QYSendPackage;print("PixelRunXbtsp")QYSendRun<>QY]]}
+local ok, json = pcall(JSON.encode, JSON, data)
+Game:dispatchEvent("PixelRunXbtsp", {customdata = json})
+//(API)
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section id="contact">
+        <div class="container">
+            <h2>⚙️Contact</h2>
+            <p>Facebook : Apiporn Phetchamon</p>
+        </div>
+    </section>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("open");
+        }
+
+        function copyCode(button) {
+            var code = button.nextElementSibling.innerText.trim();
+            navigator.clipboard.writeText(code).then(() => {
+                button.innerText = "Copied!";
+                setTimeout(() => { button.innerText = "copy"; }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy : ', err);
+                alert('Cannot be copied');
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    </script>
+</body>
+</html>
